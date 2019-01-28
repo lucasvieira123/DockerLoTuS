@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project-msc version="1.0" name="OneDefiance">
+	<HmscComponent>
+		<GenericElements>
+			<GenericElement type="HmscBlock" id="0" x="82.0" y="45.0" label="Take Off" isInitial="false" isExceptional="false" isFull="true" bMSC="Take Off">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="1" x="264.5090909090909" y="56.12727272727271" label="Flying" isInitial="false" isExceptional="false" isFull="true" bMSC="Flying">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="2" x="140.03636363636366" y="348.4909090909091" label="Check Status" isInitial="false" isExceptional="false" isFull="true" bMSC="Check Status">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="4" x="753.0181818181819" y="289.70909090909095" label="Landing" isInitial="false" isExceptional="false" isFull="true" bMSC="Landing">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="5" x="983.2363636363636" y="250.0" label="Shut Down" isInitial="false" isExceptional="false" isFull="true" bMSC="Shut Down">
+			</GenericElement>
+			<GenericElement type="InterceptionNode" id="6" x="503.3636363636365" y="585.6181818181819" label="InterceptionNode{6}">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="7" x="776.4727272727272" y="600.6181818181818" label="Move aside" isInitial="false" isExceptional="true" isFull="true" bMSC="Move aside">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="8" x="153.30909090909086" y="610.9818181818182" label="Keep Flying" isInitial="false" isExceptional="true" isFull="true" bMSC="Keep Flying">
+			</GenericElement>
+			<GenericElement type="HmscBlock" id="9" x="767.8545454545455" y="437.2363636363637" label="SafeLanding" isInitial="false" isExceptional="false" isFull="true" bMSC="SafeLanding">
+			</GenericElement>
+		</GenericElements>
+		<TransitionMSC>
+			<TransitionHMSC from="0" to="2" label="" view-type="0">
+			</TransitionHMSC>
+			<TransitionHMSC from="4" to="5" label="" view-type="0">
+			</TransitionHMSC>
+			<TransitionHMSC from="9" to="5" label="" view-type="0">
+			</TransitionHMSC>
+			<TransitionHMSC from="2" to="4" label="" view-type="0" guard="d==0">
+			</TransitionHMSC>
+			<TransitionHMSC from="2" to="6" label="" view-type="0" guard="b@LESS=10">
+			</TransitionHMSC>
+			<TransitionHMSC from="6" to="9" label="" view-type="0">
+			</TransitionHMSC>
+			<TransitionHMSC from="6" to="8" label="" view-type="0" guard="d@LESS=2 @EE; strongWind==1">
+			</TransitionHMSC>
+			<TransitionHMSC from="6" to="7" label="" view-type="0" guard="onWater==1">
+			</TransitionHMSC>
+			<TransitionHMSC from="7" to="9" label="" view-type="0">
+			</TransitionHMSC>
+			<TransitionHMSC from="2" to="1" label="" view-type="0" guard="b@MORE10 @EE; d@MORE0">
+			</TransitionHMSC>
+			<TransitionHMSC from="1" to="2" label="" view-type="1" action="b=b-1,d=d-1">
+			</TransitionHMSC>
+			<TransitionHMSC from="8" to="4" label="" view-type="0">
+			</TransitionHMSC>
+		</TransitionMSC>
+		<LTS-Composed>
+			<States>
+			</States>
+			<Transitions>
+			</Transitions>
+		</LTS-Composed>
+	</HmscComponent>
+	<bMSCs>
+		<bMSC name="Take Off">
+			<Objects>
+				<Object name="controller" id="0" x="27.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="411.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="takeOff" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Flying">
+			<Objects>
+				<Object name="controller" id="0" x="24.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="414.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="manoeuvre" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Check Status">
+			<Objects>
+				<Object name="controller" id="0" x="51.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="508.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="checkStatus" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Return to Home">
+			<Objects>
+				<Object name="controller" id="0" x="54.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="573.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="ReturnToHome" guard="" parameters="b,dt,ds,strongWind,onWater,bc" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Landing">
+			<Objects>
+				<Object name="controller" id="0" x="83.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="487.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="landing" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Shut Down">
+			<Objects>
+				<Object name="controller" id="0" x="59.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="542.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="shutdown" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="SafeLanding">
+			<Objects>
+				<Object name="drone" id="0" x="63.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="527.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="safeLanding" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Move aside">
+			<Objects>
+				<Object name="controller" id="0" x="46.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="493.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="moveAside" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+		<bMSC name="Keep Flying">
+			<Objects>
+				<Object name="controller" id="0" x="49.0" y="50.0">
+				</Object>
+				<Object name="drone" id="1" x="484.0" y="50.0">
+				</Object>
+			</Objects>
+			<TransitionMSC>
+				<TransitionBMSC from="0" to="1" sequence="1" label="manoeuvre" guard="" parameters="b,d,strongWind,onWater" view-type="0">
+				</TransitionBMSC>
+			</TransitionMSC>
+		</bMSC>
+	</bMSCs>
+	<FragmentsLTS>
+	</FragmentsLTS>
+</project-msc>

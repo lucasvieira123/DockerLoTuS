@@ -1,0 +1,34 @@
+sudo docker run -ti --rm -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY  a:latest /bin/sh
+
+sudo docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix a:latest /bin/sh
+
+sudo docker run -ti --rm -v --net=host --env="$DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" a:latest /bin/sh
+
+sudo docker run -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" osrf/ros:indigo-desktop-full rqt export containerId=$ a:latest
+
+sudo docker run -ti --rm -v --net=host --env="$DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" a:latest /bin/sh
+
+sudo docker run -ti --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix a:latest /bin/sh
+
+sudo docker run -ti --rm -v --net=host -e DISPLAY=$DISPLAY --volume="$HOME/.Xauthority:/root/.Xauthority:rw" a:latest /bin/sh
+
+sudo docker build -t a .
+set-variable -name DISPLAY -value 192.168.0.110:0.0
+
+docker run -ti --rm -e DISPLAY=172.17.0.1:0.0 a
+
+docker run -ti --rm \
+       -e DISPLAY=$DISPLAY \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       a:latest /bin/sh
+
+/usr/bin/firefox
+
+
+configurações final
+executa no terminal normal 
+
+
+sudo docker build -t lotus-ubuntu .
+xhost +
+sudo docker run -it --net host -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY lotus-ubuntu:latest
